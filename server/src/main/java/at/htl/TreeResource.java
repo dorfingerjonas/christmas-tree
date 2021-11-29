@@ -6,17 +6,25 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Path("/tree")
+@Produces(MediaType.APPLICATION_JSON)
 public final class TreeResource {
 
     private static final Map<TreeType, List<Tree>> trees = getTrees();
 
-    private static Map<TreeType, List<Tree>> getTrees(){
+    @GET
+    @Path("/types")
+    public Response getTreeTypes() {
+        return Response
+            .ok(TreeType.values())
+            .build();
+    }
+
+    private static Map<TreeType, List<Tree>> getTrees() {
         return new HashMap<>() {{
             put(TreeType.Blaufichte, List.of(
                 new Tree(1, TreeType.Blaufichte, 1.8, BigDecimal.valueOf(17.99)),
@@ -24,6 +32,7 @@ public final class TreeResource {
                 new Tree(3, TreeType.Blaufichte, 2.8, BigDecimal.valueOf(26.49)),
                 new Tree(4, TreeType.Blaufichte, 3.1, BigDecimal.valueOf(29.99))
             ));
+
             put(TreeType.Nordmanntanne, List.of(
                 new Tree(5, TreeType.Nordmanntanne, 1.2, BigDecimal.valueOf(17.49)),
                 new Tree(6, TreeType.Nordmanntanne, 1.45, BigDecimal.valueOf(25.49)),
