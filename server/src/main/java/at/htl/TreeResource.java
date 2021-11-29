@@ -1,18 +1,15 @@
 package at.htl;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Path("/tree")
+@Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public final class TreeResource {
 
@@ -37,6 +34,41 @@ public final class TreeResource {
                     .map(Tree::getId)
                     .toList())
             .build();
+    }
+
+    @GET
+    @Path("{type}/{id}")
+    public Response getTree(@PathParam("type") TreeType type, @PathParam("id") int id) {
+        Tree tree = getTreeById(type, id);
+        return (tree == null)
+            ? Response.status(404).build()
+            : Response.ok(tree).build();
+    }
+
+    @POST
+    @Path("{type}/{id}/buy")
+    public Response buyTree(@PathParam("type") TreeType type, @PathParam("id") int id) {
+        Tree tree = getTreeById(type, id);
+
+        if (tree == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        if (tree.isSold()) {
+            return Response.status(Response.Status.NOT_MODIFIED).build();
+        }
+
+        tree.setSold(true);
+
+        return Response.ok().build();
+    }
+
+    private static Tree getTreeById(TreeType type, int id) {
+        return trees.get(type)
+            .stream()
+            .filter(t -> t.getId() == id)
+            .findFirst()
+            .orElse(null);
     }
 
     private static Map<TreeType, List<Tree>> getTrees() {
