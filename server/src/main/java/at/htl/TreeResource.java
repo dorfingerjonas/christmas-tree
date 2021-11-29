@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Path("/tree")
 @Produces(MediaType.APPLICATION_JSON)
