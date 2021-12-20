@@ -8,19 +8,23 @@ import { MatCardModule } from '@angular/material/card';
 import { HomeComponent } from './home/home.component';
 import { TreeComponent } from './tree/tree.component';
 import { MatButtonModule } from '@angular/material/button';
+import { TypeSelectionComponent } from './tree/type-selection/type-selection.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    TreeComponent
+    TreeComponent,
+    TypeSelectionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
