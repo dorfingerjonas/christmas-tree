@@ -1,0 +1,37 @@
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5vh;
+  user-select: none;
+
+  img {
+    width: 10em;
+    margin-bottom: 2vh;
+  }
+
+  #logo {
+    font-family: 'Verdana', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 3em;
+
+    span:nth-child(1) {
+      color: #27346a;
+    }
+
+    span:nth-child(2) {
+      color: #2790c3;
+    }
+  }
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+}
+
+#response {
+  margin: 1vh 0;
+  color: #4ed170;
+}

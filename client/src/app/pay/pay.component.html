@@ -1,0 +1,35 @@
+<header>
+  <img src="assets/praypal.svg" alt="Pray Pal Logo">
+
+  <div id="logo">
+    <span>Pray</span>
+    <span>Pal</span>
+  </div>
+
+</header>
+
+<div id="content">
+  <mat-form-field>
+    <mat-label>PrayPal Address</mat-label>
+    <input matInput placeholder="PrayPal Address" [formControl]="emailControl">
+
+    <mat-error *ngIf="emailControl.hasError('required')">E-Mail must not be empty</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="Password" type="password" [formControl]="passwordControl">
+
+    <mat-error *ngIf="passwordControl.hasError('required')">Password must not be empty</mat-error>
+  </mat-form-field>
+
+  <br>
+
+  <button mat-raised-button (click)="buy()" [disabled]="!isInputValid()">Buy</button>
+
+  <div *ngIf="showResponse" id="response">
+    <p>Thanks! An order confirmation email was sent to you, check your spam folder as well!</p>
+
+    <button mat-raised-button (click)="close()">go back to home screen</button>
+  </div>
+</div>
