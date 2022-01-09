@@ -1,4 +1,5 @@
 <app-type-selection
         (typeSelected)="typeSelectionChanged($event)">
 </app-type-selection>
+
 <app-tree-list [selectedTreeType]="selectedType" *ngIf="selectedType !== null"></app-tree-list>
