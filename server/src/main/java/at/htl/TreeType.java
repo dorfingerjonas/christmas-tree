@@ -2,5 +2,7 @@ package at.htl;
 
 public enum TreeType {
     Blaufichte,
-    Nordmanntanne
+    Nordmanntanne,
+    Edeltanne,
+    Dornbusch
 }
