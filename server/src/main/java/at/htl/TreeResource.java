@@ -7,64 +7,63 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-@Path("/tree")
-@Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public final class TreeResource {
+@Path("/tree")
+public class TreeResource {
 
     private static final Map<TreeType, List<Tree>> trees = getTrees();
 
     @GET
     @Path("/types")
     public Response getTreeTypes() {
-        return Response
-            .ok(TreeType.values())
-            .build();
+        return Response.ok(
+            TreeType.values()
+        ).build();
     }
 
     @GET
-    @Path("{type}")
+    @Path("/{type}")
     public Response getTreesOfType(@PathParam("type") TreeType type) {
-        return Response
-            .ok(
-                trees
-                    .get(type)
-                    .stream()
-                    .map(Tree::getId)
-                    .toList())
-            .build();
+        var ids = trees.get(type)
+            .stream()
+            .map(Tree::getId)
+            .collect(Collectors.toList());
+
+        return Response.ok(ids).build();
     }
 
     @GET
-    @Path("{type}/{id}")
+    @Path("/{type}/{id}")
     public Response getTree(@PathParam("type") TreeType type, @PathParam("id") int id) {
-        Tree tree = getTreeById(type, id);
-        return (tree == null)
-            ? Response.status(404).build()
-            : Response.ok(tree).build();
+        var tree = getTreeById(type, id);
+        return (tree == null
+            ? Response.status(404)
+            : Response.ok(tree)).build();
     }
 
     @POST
-    @Path("{type}/{id}/buy")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{type}/{id}/buy")
     public Response buyTree(@PathParam("type") TreeType type, @PathParam("id") int id) {
-        Tree tree = getTreeById(type, id);
+        var tree = getTreeById(type, id);
 
         if (tree == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(404).build();
         }
 
         if (tree.isSold()) {
-            return Response.status(Response.Status.NOT_MODIFIED).build();
+            return Response.notModified().build();
         }
 
         tree.setSold(true);
-
         return Response.ok().build();
     }
 
-    private static Tree getTreeById(TreeType type, int id) {
-        return trees.get(type)
+    private Tree getTreeById(TreeType type, int id) {
+        return trees
+            .get(type)
             .stream()
             .filter(t -> t.getId() == id)
             .findFirst()
