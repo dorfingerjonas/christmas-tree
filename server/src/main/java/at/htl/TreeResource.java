@@ -26,12 +26,18 @@ public class TreeResource {
     @GET
     @Path("/{type}")
     public Response getTreesOfType(@PathParam("type") TreeType type) {
-        List<Integer> ids = trees.get(type)
-            .stream()
-            .map(Tree::getId)
-            .collect(Collectors.toList());
+        List<Tree> treesCollection = trees.get(type);
 
-        return Response.ok(ids).build();
+        if (treesCollection == null) {
+            return Response.status(404).build();
+        } else {
+            return Response.ok(
+                treesCollection
+                    .stream()
+                    .map(Tree::getId)
+                    .collect(Collectors.toList())
+            ).build();
+        }
     }
 
     @GET
@@ -44,9 +50,9 @@ public class TreeResource {
             : Response.ok(tree)).build();
     }
 
-    @POST
+    @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/{type}/{id}/buy")
+    @Path("{type}/{id}/buy")
     public Response buyTree(@PathParam("type") TreeType type, @PathParam("id") int id) {
         Tree tree = getTreeById(type, id);
 
@@ -59,7 +65,8 @@ public class TreeResource {
         }
 
         tree.setSold(true);
-        return Response.ok().build();
+
+        return Response.ok(tree).build();
     }
 
     private Tree getTreeById(TreeType type, int id) {
