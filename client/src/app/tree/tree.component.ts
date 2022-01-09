@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
+import {BackendService} from "../shared/backend.service";
 
 @Component({
-  selector: 'app-tree',
-  templateUrl: './tree.component.html',
-  styleUrls: ['./tree.component.scss']
+    selector: 'app-tree',
+    templateUrl: './tree.component.html',
+    styleUrls: ['./tree.component.scss']
 })
-export class TreeComponent implements OnInit {
+export class TreeComponent {
 
-  constructor() { }
+    public selectedType: string | null;
 
-  ngOnInit(): void {
-  }
+    constructor(private readonly backend: BackendService) {
+        this.selectedType = null;
+    }
 
+    typeSelectionChanged(type: string): void {
+        this.selectedType = type;
+    }
 }

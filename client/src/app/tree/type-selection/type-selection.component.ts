@@ -1,29 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { BackendService, TreeType } from '../../../shared/backend.service';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {BackendService} from "../../shared/backend.service";
+import {MatSelectChange} from "@angular/material/select";
 
 @Component({
-  selector: 'app-type-selection',
-  templateUrl: './type-selection.component.html',
-  styleUrls: [ './type-selection.component.scss' ]
+    selector: 'app-type-selection',
+    templateUrl: './type-selection.component.html',
+    styleUrls: ['./type-selection.component.scss']
 })
 export class TypeSelectionComponent implements OnInit {
 
-  public treeTypes: TreeType[] | null;
+    public treeTypes: string[] | null;
+    public selectedType: string | null;
 
-  constructor(private readonly backend: BackendService) {
-    this.treeTypes = null;
-  }
+    @Output()
+    private typeSelected: EventEmitter<string>
 
-  public ngOnInit(): void {
-    this.backend.getAllTreeTypes()
-      .subscribe({
-        next: res => {
-          this.treeTypes = res;
-        },
-        error: err => {
-          console.log(err.messageText);
-        }
-      });
-  }
+    constructor(private readonly backend: BackendService) {
+        this.treeTypes = null;
+        this.selectedType = null;
+        this.typeSelected = new EventEmitter<string>();
+    }
 
+    public ngOnInit(): void {
+        this.backend.getAllTreeTypes()
+            .subscribe({
+                next: res => {
+                    this.treeTypes = res;
+                    if (res.length > 0) {
+                        this.selectedType = res[0];
+                    }
+                },
+                error: err => {
+                    console.log(err.messageText)
+                }
+            });
+    }
+
+    typeSelectionChanged(change: MatSelectChange) {
+        this.typeSelected.emit(change.value);
+    }
 }

@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
-  constructor(
-    private readonly router: Router
-  ) { }
+    public constructor(private readonly router: Router) {
 
-  ngOnInit(): void {
-  }
+    }
 
-  public treeButtonClick(): void {
-    this.router.navigate(['/tree']);
-  }
+    ngOnInit(): void {
+    }
+
+    public treeBtnClick(): void {
+        this.router.navigate(['tree'])
+    }
 }

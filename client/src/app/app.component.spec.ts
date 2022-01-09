@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'christmas-tree'`, () => {
+  it(`should have as title 'xmas'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('christmas-tree');
+    expect(app.title).toEqual('xmas');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('christmas-tree app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('xmas app is running!');
   });
 });

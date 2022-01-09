@@ -1,8 +1,9 @@
 mat-card {
-  margin: 2em 0 0 2em;
+  margin-left: 2em;
+  margin-top: 2em;
   width: 40%;
+}
 
-  mat-card-content {
-    margin-left: 2.5em;
-  }
+mat-card-content {
+  margin-left: 2.5em;
 }
