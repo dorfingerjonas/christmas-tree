@@ -7,11 +7,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native-distroless -t quarkus/christmas-tree .
+# docker build -f src/main/docker/Dockerfile.native-distroless -t quarkus/xmas-trees .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/christmas-tree
+# docker run -i --rm -p 8080:8080 quarkus/xmas-trees
 #
 ###
 FROM quay.io/quarkus/quarkus-distroless-image:1.0
