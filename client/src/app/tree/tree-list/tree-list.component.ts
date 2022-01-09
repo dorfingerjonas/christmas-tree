@@ -18,7 +18,8 @@ export class TreeListComponent implements OnChanges {
 
     public async ngOnChanges(changes: SimpleChanges): Promise<void> {
         await this.loadTrees(changes['selectedTreeType'].currentValue)
-            .then();
+            .then()
+            .catch(err => err);
     }
 
     private async loadTrees(type: string): Promise<void> {
