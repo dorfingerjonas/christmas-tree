@@ -1,0 +1,45 @@
+<p>Please enter your personal data</p>
+
+<mat-form-field>
+  <mat-label>Firstname</mat-label>
+  <input matInput placeholder="Firstname" name="name" [formControl]="nameControl">
+
+  <mat-error *ngIf="nameControl.hasError('required')">Firstname must not be empty</mat-error>
+  <mat-error *ngIf="nameControl.hasError('pattern')">Invalid format</mat-error>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>E-Mail</mat-label>
+  <input matInput placeholder="E-Mail" name="email" [formControl]="emailControl">
+
+  <mat-error *ngIf="emailControl.hasError('required')">E-Mail must not be empty</mat-error>
+  <mat-error *ngIf="emailControl.hasError('email')">Invalid email format</mat-error>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Street</mat-label>
+  <input matInput placeholder="Street" name="street" [formControl]="streetControl">
+
+  <mat-error *ngIf="streetControl.hasError('required')">Street must not be empty</mat-error>
+  <mat-error *ngIf="streetControl.hasError('pattern')">Invalid format</mat-error>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>House number</mat-label>
+  <input matInput placeholder="House number" name="housenumber" [formControl]="houseNumberControl">
+
+  <mat-error *ngIf="houseNumberControl.hasError('required')">House number must not be empty</mat-error>
+  <mat-error *ngIf="houseNumberControl.hasError('pattern')">Invalid format</mat-error>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>ZIP Code</mat-label>
+  <input matInput placeholder="ZIP" name="zip" [formControl]="zipControl">
+
+  <mat-error *ngIf="zipControl.hasError('required')">ZIP code must not be empty</mat-error>
+  <mat-error *ngIf="zipControl.hasError('pattern') || zipControl.hasError('maxLength')">
+    Invalid format
+  </mat-error>
+</mat-form-field>
+
+<button mat-raised-button (click)="buy()" [disabled]="!isInputValid()">Buy tree #{{ tree.id }}</button>
